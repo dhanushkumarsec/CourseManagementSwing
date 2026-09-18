@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduPulse | Next-Gen Course Management System</title>
+  <meta name="description" content="EduPulse - Premier Course Management System for Students & Instructors with Interactive Lessons, Quizzes, Analytics and Certificates.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- App Layout -->
+  <div id="app" class="app-container">
+    
+    <!-- Top Header Navigation -->
+    <header class="app-header" id="app-header">
+      <!-- Navbar dynamically injected here -->
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-main" id="app-main">
+      <!-- Views will be dynamically loaded here: catalog, details, player, studio, analytics, profile -->
+    </main>
+
+    <!-- App Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <i data-lucide="graduation-cap"></i>
+            <span>EduPulse</span>
+          </div>
+          <p>Empowering global learners and educators with modern, interactive digital education.</p>
+        </div>
+        <div class="footer-links">
+          <div class="link-group">
+            <h4>Platform</h4>
+            <a href="#" class="nav-link-btn" data-target="catalog">Course Marketplace</a>
+            <a href="#" class="nav-link-btn" data-target="profile">My Learning</a>
+            <a href="#" class="nav-link-btn" data-target="studio">Instructor Studio</a>
+            <a href="#" class="nav-link-btn" data-target="analytics">Analytics & Roster</a>
+          </div>
+          <div class="link-group">
+            <h4>Categories</h4>
+            <a href="#" class="cat-filter-btn" data-category="Web Development">Web Development</a>
+            <a href="#" class="cat-filter-btn" data-category="Data Science">Data Science & AI</a>
+            <a href="#" class="cat-filter-btn" data-category="UI/UX Design">UI/UX Design</a>
+            <a href="#" class="cat-filter-btn" data-category="Cyber Security">Cyber Security</a>
+          </div>
+          <div class="link-group">
+            <h4>System</h4>
+            <button id="btn-reset-data" class="btn-text-danger">
+              <i data-lucide="rotate-ccw"></i> Reset Demo Data
+            </button>
+            <p class="copyright-text">&copy; 2026 EduPulse Inc. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Global Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Modal Dialog: Course Creation / Editor Studio -->
+  <dialog id="modal-course-studio" class="app-dialog modal-large">
+    <div class="dialog-header">
+      <h3 id="modal-studio-title"><i data-lucide="plus-circle"></i> Create New Course</h3>
+      <button class="btn-icon dialog-close" data-close-dialog><i data-lucide="x"></i></button>
+    </div>
+    <div class="dialog-body">
+      <form id="form-course-studio" class="studio-form">
+        <input type="hidden" id="studio-course-id">
+        
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="studio-title">Course Title <span class="required">*</span></label>
+            <input type="text" id="studio-title" required placeholder="e.g. Master Full-Stack Web Development with React & Node">
+          </div>
+
+          <div class="form-group">
+            <label for="studio-category">Category <span class="required">*</span></label>
+            <select id="studio-category" required>
+              <option value="Web Development">Web Development</option>
+              <option value="Data Science & AI">Data Science & AI</option>
+              <option value="UI/UX Design">UI/UX Design</option>
+              <option value="Cloud & DevOps">Cloud & DevOps</option>
+              <option value="Cyber Security">Cyber Security</option>
+              <option value="Business & Finance">Business & Finance</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="studio-level">Difficulty Level <span class="required">*</span></label>
+            <select id="studio-level" required>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+              <option value="All Levels">All Levels</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="studio-price">Price ($) <span class="required">*</span></label>
+            <input type="number" id="studio-price" min="0" step="0.99" value="49.99" required>
+          </div>
+
+          <div class="form-group">
+            <label for="studio-instructor">Instructor Name <span class="required">*</span></label>
+            <input type="text" id="studio-instructor" required placeholder="Dr. Sarah Jenkins">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="studio-thumbnail">Thumbnail Image URL</label>
+            <input type="url" id="studio-thumbnail" placeholder="https://images.unsplash.com/photo-...">
+            <small class="help-text">Leave blank to use an auto-generated category cover image.</small>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="studio-description">Course Overview & Learning Objectives <span class="required">*</span></label>
+            <textarea id="studio-description" rows="4" required placeholder="Describe what students will learn in this course..."></textarea>
+          </div>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- Dynamic Modules Section -->
+        <div class="studio-modules-section">
+          <div class="section-title-bar">
+            <h4><i data-lucide="layers"></i> Curriculum Modules & Lessons</h4>
+            <button type="button" id="btn-add-module" class="btn btn-secondary btn-sm">
+              <i data-lucide="plus"></i> Add Module
+            </button>
+          </div>
+          <div id="studio-modules-container" class="studio-modules-list">
+            <!-- Dynamic module items will be injected here -->
+          </div>
+        </div>
+
+        <div class="dialog-footer">
+          <button type="button" class="btn btn-secondary" data-close-dialog>Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="check"></i> Save & Publish Course
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Modal Dialog: Interactive Quiz Modal -->
+  <dialog id="modal-quiz" class="app-dialog modal-medium">
+    <div class="dialog-header">
+      <h3 id="quiz-modal-title"><i data-lucide="help-circle"></i> Module Knowledge Check</h3>
+      <button class="btn-icon dialog-close" data-close-dialog><i data-lucide="x"></i></button>
+    </div>
+    <div class="dialog-body" id="quiz-modal-body">
+      <!-- Quiz content rendered dynamically by quiz.js -->
+    </div>
+  </dialog>
+
+  <!-- Modal Dialog: Certificate View & Download -->
+  <dialog id="modal-certificate" class="app-dialog modal-large">
+    <div class="dialog-header">
+      <h3><i data-lucide="award"></i> Official Certificate of Completion</h3>
+      <button class="btn-icon dialog-close" data-close-dialog><i data-lucide="x"></i></button>
+    </div>
+    <div class="dialog-body text-center">
+      <div class="certificate-preview-box">
+        <canvas id="certificate-canvas" width="1000" height="700"></canvas>
+      </div>
+      <div class="certificate-actions">
+        <button id="btn-download-cert" class="btn btn-primary btn-lg">
+          <i data-lucide="download"></i> Download Certificate (PNG)
+        </button>
+        <button type="button" class="btn btn-secondary btn-lg" data-close-dialog>Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- JavaScript App Logic -->
+  <script src="js/mockData.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/components/navbar.js"></script>
+  <script src="js/components/modal.js"></script>
+  <script src="js/components/toast.js"></script>
+  <script src="js/components/certificate.js"></script>
+  <script src="js/views/catalog.js"></script>
+  <script src="js/views/details.js"></script>
+  <script src="js/views/player.js"></script>
+  <script src="js/views/quiz.js"></script>
+  <script src="js/views/studio.js"></script>
+  <script src="js/views/analytics.js"></script>
+  <script src="js/views/profile.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
